@@ -12,9 +12,7 @@ class ReposController < ApplicationController
   end
 
   def show
-    repo = Rugged::Repository.new( '/git/' + params[:repo] +'.git')
-    head = repo.head.target
-    @tree = repo.lookup( head )
-    p @tree
+    @repo = Rugged::Repository.new( '/git/' + params[:repo] +'.git')
+    @tree = @repo.lookup( @repo.head.target )
   end
 end
