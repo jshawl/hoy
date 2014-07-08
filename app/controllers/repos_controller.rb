@@ -22,5 +22,6 @@ class ReposController < ApplicationController
     obj = @repo.lookup @contents
     robj = obj.read_raw
     @body  = robj.data
+    render :blob => @body
   end
 end
