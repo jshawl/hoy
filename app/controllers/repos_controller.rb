@@ -12,7 +12,15 @@ class ReposController < ApplicationController
   end
 
   def show
-    @repo = Rugged::Repository.new( '/git/' + params[:repo] +'.git')
+    @repo = Rugged::Repository.new( './public/' + params[:repo] +'.git')
     @tree = @repo.lookup( @repo.head.target )
+  end
+
+  def blob
+    @repo = Rugged::Repository.new( './public/' + params[:repo] +'.git')
+    @contents = Rugged::Blob.from_workdir @repo, params[:file]
+    obj = @repo.lookup @contents
+    robj = obj.read_raw
+    @body  = robj.data
   end
 end
